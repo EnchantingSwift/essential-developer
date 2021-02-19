@@ -33,11 +33,7 @@ public final class RemoteFeedLoader {
         client.get(from: url) { result in
             switch result {
             case let .success((data, response)):
-                guard let root = try? JSONDecoder().decode(Root.self, from: data),
-                      response.statusCode == 200 else {
-                    return completion(.failure(.invalidData))
-                }
-                completion(.success(root.feed))
+                completion(FeedItemsMapper.map(data, response))
             case .failure:
                 completion(.failure(.connectivity))
             }
@@ -45,13 +41,15 @@ public final class RemoteFeedLoader {
     }
 }
 
-private struct Root: Decodable {
-    private let items: [Item]
-    var feed: [FeedItem] {
-        return items.map { $0.feed }
+private class FeedItemsMapper {
+    struct Root: Decodable {
+        private let items: [Item]
+        var feed: [FeedItem] {
+            return items.map { $0.feed }
+        }
     }
     
-    private struct Item: Decodable {
+    struct Item: Decodable {
         let id: UUID
         let description: String?
         let location: String?
@@ -63,5 +61,15 @@ private struct Root: Decodable {
                             location: location,
                             imageURL: image)
         }
+    }
+    
+    private static var OK_200: Int { return 200 }
+
+    static func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedLoader.Result {
+        guard let root = try? JSONDecoder().decode(Root.self, from: data),
+              response.statusCode == OK_200 else {
+            return .failure(.invalidData)
+        }
+        return .success(root.feed)
     }
 }

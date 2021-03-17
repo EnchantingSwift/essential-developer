@@ -1,6 +1,8 @@
 # Essential Feed App - Image Feed Feature
 [Link course](https://academy.essentialdeveloper.com/)
 
+[![Build Status](https://travis-ci.com/EnchantingSwift/Essential-Developer.svg?branch=main)](https://travis-ci.com/EnchantingSwift/Essential-Developer)
+
 ## Story: Customer requests to see their image feed
 
 ### Narrative #1

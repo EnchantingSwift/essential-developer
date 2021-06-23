@@ -105,6 +105,13 @@
 			path = EssentialFeedAPIEndToEndTests;
 			sourceTree = "<group>";
 		};
+		467DE454263FF314003EE20D /* Feed Cache */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Feed Cache";
+			sourceTree = "<group>";
+		};
 		46939F7125F2B8C800DE4522 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				46B27F35252DE3CE006D2759 /* Info.plist */,
+				467DE454263FF314003EE20D /* Feed Cache */,
 				469D07E525E3A02D000F8FA9 /* Feed API */,
 			);
 			path = EssentialFeedTests;
